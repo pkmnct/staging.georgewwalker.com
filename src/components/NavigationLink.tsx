@@ -22,10 +22,10 @@ const StyledLink = styled(Link)`
     content: "";
     position: absolute;
     left: 0;
-    top: calc(100% + 0.25em);
-    height: 8px;
+    top: 100%;
+    border-bottom: 0.25em solid #fff;
+    height: 0.25em;
     width: 0;
-    background-color: #fff;
     transition: width ease-in-out 0.3s;
   }
   &:hover:after,
