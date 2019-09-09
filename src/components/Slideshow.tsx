@@ -67,8 +67,8 @@ const Slider = (props: SliderProps) => {
   return (
     <>
       <StyledSlider organicArrows={false} fillParent ref={slider}>
-        {images.map(image => (
-          <div data-src={image} />
+        {images.map((image, i) => (
+          <div data-src={image} key={i} />
         ))}
       </StyledSlider>
       <Progress
