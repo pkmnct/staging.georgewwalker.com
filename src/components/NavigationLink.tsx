@@ -35,7 +35,14 @@ const StyledLink = styled(Link)`
 `;
 
 const NavigationLink = (props: NavigationLinkProps) => {
-  const { location, className, history, match, ...otherProps } = props;
+  const {
+    location,
+    className,
+    history,
+    match,
+    staticContext,
+    ...otherProps
+  } = props;
 
   return (
     <StyledLink
