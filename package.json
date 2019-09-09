@@ -2,6 +2,7 @@
   "name": "georgewwalker.com",
   "description": "Personal Portfolio Website",
   "dependencies": {
+    "@octokit/rest": "^16.28.9",
     "@types/classnames": "^2.2.9",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.4",
