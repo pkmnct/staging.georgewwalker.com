@@ -8,6 +8,9 @@ const StyledSlider = styled(AwesomeSlider)`
   &.aws-sld {
     --loader-bar-color: transparent;
   }
+  & nav {
+    display: none;
+  }
 `;
 
 interface SliderProps extends HTMLAttributes<HTMLElement> {
