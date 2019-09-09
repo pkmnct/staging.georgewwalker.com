@@ -1,7 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import Holder from "./Holder";
 
-const subtleTransition = keyframes`
+export const subtleTransition = keyframes`
   0% {
     background-position: 50% 0%;
   }
@@ -13,10 +13,14 @@ const subtleTransition = keyframes`
   }
 `;
 
-const Gradient = styled(Holder)`
+export const gradientCss = css`
   background: linear-gradient(225deg, rgb(255, 229, 79), rgb(179, 46, 136));
   animation: ${subtleTransition} 15s linear infinite;
   background-size: 300% 300%;
+`;
+
+export const Gradient = styled(Holder)`
+  ${gradientCss}
 `;
 
 export default Gradient;
