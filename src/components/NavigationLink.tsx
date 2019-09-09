@@ -35,11 +35,13 @@ const StyledLink = styled(Link)`
 `;
 
 const NavigationLink = (props: NavigationLinkProps) => {
+  const { location, className, history, match, ...otherProps } = props;
+
   return (
     <StyledLink
-      {...props}
-      className={classnames(props.className, {
-        current: props.to === props.location.pathname
+      {...otherProps}
+      className={classnames(className, {
+        current: props.to === location.pathname
       })}
     >
       {props.children}

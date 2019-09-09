@@ -4,7 +4,8 @@ import styled from "styled-components";
 const StyledH1 = styled.h1`
   font-family: "Abril Fatface", cursive;
   font-weight: 400;
-  padding: 2em;
+  padding: 16px;
+  margin: 0;
 `;
 
 const Logo = () => {

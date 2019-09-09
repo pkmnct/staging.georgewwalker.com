@@ -1,4 +1,4 @@
-import React from "react";
+import React, { HTMLProps } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "./Logo";
@@ -9,15 +9,16 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledHeader = styled.header`
-  flex-grow: 1;
+  text-align: center;
 `;
 
-const Header = () => {
+const Header = (props: HTMLProps<HTMLElement>) => {
   return (
     <StyledHeader>
       <StyledLink to="/">
         <Logo />
       </StyledLink>
+      {props.children}
     </StyledHeader>
   );
 };
