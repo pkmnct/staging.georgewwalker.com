@@ -44,9 +44,9 @@ const App = (props: RouteComponentProps) => {
 
   return (
     <>
-      <GradientBackground showing={!photoHover} />
+      <GradientBackground showing={!photoHover || webHover} />
       <ParticlesBackground showing={webHover} />
-      <BackgroundHolder showing={photoHover}>
+      <BackgroundHolder showing={photoHover && !webHover}>
         <Slideshow
           isPlaying={photoHover}
           images={[
