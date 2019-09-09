@@ -1,17 +1,25 @@
 {
   "name": "georgewwalker.com",
+  "description": "Personal Portfolio Website",
   "dependencies": {
+    "@types/classnames": "^2.2.9",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.4",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^4.3.5",
+    "@types/styled-components": "^4.1.18",
     "classnames": "^2.2.6",
     "ken-burns-slideshow": "^1.1.3",
     "particles.js": "^2.0.0",
     "react": "^16.9.0",
     "react-awesome-slider": "^1.0.1",
     "react-dom": "^16.9.0",
-    "react-progressbar": "^15.4.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "styled-components": "^4.3.2",
-    "symlink-cli": "^1.0.0"
+    "symlink-cli": "^1.0.0",
+    "typescript": "^3.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +42,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pkmnct/georgewwalker.com.git"
+  },
+  "license": "MIT"
 }

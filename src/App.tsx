@@ -5,9 +5,14 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "particles.js/particles";
-import AwesomeSlider from "react-awesome-slider";
 import "react-awesome-slider/dist/styles.css";
 import classnames from "classnames";
+const AwesomeSlider = require("react-awesome-slider").default;
+
+interface WindowWithParticles extends Window {
+  particlesJS(id: string, settings: object, callback: Function): void;
+}
+declare var window: WindowWithParticles;
 
 const StyledLink = styled(Link)`
   color: #fff;
@@ -181,16 +186,20 @@ const App = () => {
   useEffect(() => {
     if (webHover && !renderedParticles) {
       setRenderedParticles(true);
-      window.particlesJS("particleHolder", particleSettings, () => {});
+      window.particlesJS!("particleHolder", particleSettings, () => {});
     }
   }, [webHover, renderedParticles]);
 
-  // Continue slideshow on hover
-  const slider = useRef();
+  // Start slideshow on hover
+  const slider = useRef({ clickNext: () => {} });
   const [resetProgress, setResetProgress] = useState(false);
   useEffect(() => {
-    console.log(slider.current);
-    let interval, progressTimeout;
+    let interval: number, progressTimeout: number;
+    const reset = () => {
+      interval && clearInterval(interval);
+      progressTimeout && clearTimeout(progressTimeout);
+      setResetProgress(true);
+    };
     if (slider.current && photoHover) {
       setResetProgress(false);
       interval = setInterval(() => {
@@ -199,21 +208,15 @@ const App = () => {
         progressTimeout = setTimeout(() => setResetProgress(false), 300);
       }, 8000);
     } else {
-      clearInterval(interval);
-      clearTimeout(progressTimeout);
-      setResetProgress(true);
+      reset();
     }
-    return () => {
-      clearInterval(interval);
-      clearTimeout(progressTimeout);
-      setResetProgress(true);
-    };
+    return reset;
   }, [photoHover, slider]);
 
   return (
     <BrowserRouter>
       <>
-        <GradientHolder className="showing" />
+        <GradientHolder className={classnames({ showing: !photoHover })} />
         <Holder
           id="particleHolder"
           className={webHover ? "showing" : undefined}
