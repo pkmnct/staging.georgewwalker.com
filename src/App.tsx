@@ -1,41 +1,21 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route, withRouter, RouteComponentProps } from "react-router-dom";
 import Software from "./views/Software";
+import Photo from "./views/Photo";
+import Tech from "./views/Tech";
+import Web from "./views/Web";
 import Header from "./components/Header";
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "particles.js/particles";
 import "react-awesome-slider/dist/styles.css";
 import classnames from "classnames";
+import NavigationLink from "./components/NavigationLink";
 const AwesomeSlider = require("react-awesome-slider").default;
 
 interface WindowWithParticles extends Window {
   particlesJS(id: string, settings: object, callback: Function): void;
 }
 declare var window: WindowWithParticles;
-
-const StyledLink = styled(Link)`
-  color: #fff;
-  text-decoration: none;
-  text-align: center;
-  font-family: "Cousine", monospace;
-  font-weight: bold;
-  margin: 1em;
-  position: relative;
-  &:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: calc(100% + 0.25em);
-    height: 8px;
-    width: 0;
-    background-color: #fff;
-    transition: width ease-in-out 0.3s;
-  }
-  &:hover:after {
-    width: 100%;
-  }
-`;
 
 const StyledNav = styled.nav`
   display: flex;
@@ -172,14 +152,16 @@ const particleSettings = {
   retina_detect: true
 };
 
-const App = () => {
+const App = (props: RouteComponentProps) => {
   // Hover handlers
   const [photoHover, setPhotoHover] = useState(false);
   const [webHover, setWebHover] = useState(false);
   const handleWebMouseEnter = () => setWebHover(true);
-  const handleWebMouseLeave = () => setWebHover(false);
+  const handleWebMouseLeave = () =>
+    props.location.pathname !== "/web" && setWebHover(false);
   const handlePhotoMouseEnter = () => setPhotoHover(true);
-  const handlePhotoMouseLeave = () => setPhotoHover(false);
+  const handlePhotoMouseLeave = () =>
+    props.location.pathname !== "/photo" && setPhotoHover(false);
 
   // Don't render particles until first hover
   const [renderedParticles, setRenderedParticles] = useState(false);
@@ -213,49 +195,69 @@ const App = () => {
     return reset;
   }, [photoHover, slider]);
 
+  // Keep backgrounds for each section
+  useEffect(() => {
+    setWebHover(false);
+    setPhotoHover(false);
+    switch (props.location.pathname) {
+      case "/web":
+        setWebHover(true);
+        break;
+      case "/photo":
+        setPhotoHover(true);
+        break;
+    }
+    if (props.location.pathname === "/web") {
+      setWebHover(true);
+    } else {
+      setWebHover(false);
+    }
+  }, [props.location.pathname]);
+
   return (
-    <BrowserRouter>
-      <>
-        <GradientHolder className={classnames({ showing: !photoHover })} />
-        <Holder
-          id="particleHolder"
-          className={webHover ? "showing" : undefined}
+    <>
+      <GradientHolder className={classnames({ showing: !photoHover })} />
+      <Holder
+        id="particleHolder"
+        className={webHover ? "showing" : undefined}
+      />
+      <Holder className={photoHover ? "showing" : undefined}>
+        <StyledSlider organicArrows={false} fillParent ref={slider}>
+          <div data-src="/images/05.03.15.BSFSLightning.01.jpg" />
+          <div data-src="/images/03.08.15.Birds.GW.01.jpg" />
+        </StyledSlider>
+        <Progress
+          className={classnames(
+            { go: photoHover },
+            { newSlide: resetProgress }
+          )}
         />
-        <Holder className={photoHover ? "showing" : undefined}>
-          <StyledSlider organicArrows={false} fillParent ref={slider}>
-            <div data-src="/images/05.03.15.BSFSLightning.01.jpg" />
-            <div data-src="/images/03.08.15.Birds.GW.01.jpg" />
-          </StyledSlider>
-          <Progress
-            className={classnames(
-              { go: photoHover },
-              { newSlide: resetProgress }
-            )}
-          />
-        </Holder>
-        <Route exact path="/software" component={Software} />
-        <Header />
-        <StyledNav className="Navigation">
-          <StyledLink to="/software">Software Engineer</StyledLink>
-          <StyledLink
-            to="/web"
-            onMouseEnter={handleWebMouseEnter}
-            onMouseLeave={handleWebMouseLeave}
-          >
-            Web Developer
-          </StyledLink>
-          <StyledLink
-            to="/photo"
-            onMouseEnter={handlePhotoMouseEnter}
-            onMouseLeave={handlePhotoMouseLeave}
-          >
-            Photographer
-          </StyledLink>
-          <StyledLink to="/tech">Tech Enthusiast</StyledLink>
-        </StyledNav>
-      </>
-    </BrowserRouter>
+      </Holder>
+      <Header />
+      <Route exact path="/Software" component={Software} />
+      <Route exact path="/Tech" component={Tech} />
+      <Route exact path="/Photo" component={Photo} />
+      <Route exact path="/Web" component={Web} />
+      <StyledNav className="Navigation">
+        <NavigationLink to="/software">Software Engineer</NavigationLink>
+        <NavigationLink
+          to="/web"
+          onMouseEnter={handleWebMouseEnter}
+          onMouseLeave={handleWebMouseLeave}
+        >
+          Web Developer
+        </NavigationLink>
+        <NavigationLink
+          to="/photo"
+          onMouseEnter={handlePhotoMouseEnter}
+          onMouseLeave={handlePhotoMouseLeave}
+        >
+          Photographer
+        </NavigationLink>
+        <NavigationLink to="/tech">Tech Enthusiast</NavigationLink>
+      </StyledNav>
+    </>
   );
 };
 
-export default App;
+export default withRouter(App);

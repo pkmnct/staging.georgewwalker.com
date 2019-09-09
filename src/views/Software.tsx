@@ -30,11 +30,7 @@ const Software = () => {
     }
   }, [repos]);
 
-  return (
-    <Section className="Software">
-      <h1>Software Portfolio goes here</h1>
-    </Section>
-  );
+  return <Section></Section>;
 };
 
 export default Software;
