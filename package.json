@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/pkmnct/georgewwalker.com.git"
+    "url": "git://github.com/pkmnct/staging.georgewwalker.com.git"
   },
   "license": "MIT",
   "gh-pages-deploy": {
     "staticpath": "build",
-    "cname": "georgewwalker.com",
+    "cname": "staging.georgewwalker.com",
     "prep": [
       "build"
     ],
