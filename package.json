@@ -30,7 +30,7 @@
   "license": "MIT",
   "gh-pages-deploy": {
     "staticpath": "build",
-    "cname": "staging.georgewwalker.com",
+    "cname": "georgewwalker.com",
     "prep": [
       "build"
     ],
