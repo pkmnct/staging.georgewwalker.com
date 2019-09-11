@@ -8,6 +8,7 @@
     "build": "react-scripts build",
     "postbuild": "react-snap",
     "deploy": "npm run build && gh-pages-deploy",
+    "deploy:staging": "npm run sync-master && gh-pages-deploy",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "sync-master": "git pull git@github.com:pkmnct/georgewwalker.com.git"
