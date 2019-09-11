@@ -3,6 +3,7 @@
   "description": "Personal Portfolio Website",
   "scripts": {
     "start": "react-scripts start",
+    "build:quick": "react-scripts build",
     "build": "npm i && react-scripts build",
     "deploy": "npm run build && gh-pages-deploy",
     "test": "react-scripts test",
