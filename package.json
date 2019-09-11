@@ -7,10 +7,10 @@
     "prebuild": "npm i",
     "build": "react-scripts build",
     "deploy": "gh-pages-deploy",
-    "deploy:staging": "npm run sync-master && gh-pages-deploy",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sync-master": "git pull git@github.com:pkmnct/georgewwalker.com.git"
+    "deploy:staging": "npm run sync-master && npm run deploy",
+    "sync-master": "git pull --rebase git@github.com:pkmnct/georgewwalker.com.git"
   },
   "eslintConfig": {
     "extends": "react-app"
