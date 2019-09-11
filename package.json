@@ -3,8 +3,9 @@
   "description": "Personal Portfolio Website",
   "scripts": {
     "start": "react-scripts start",
-    "build:quick": "react-scripts build",
-    "build": "npm i && react-scripts build",
+    "build:quick": "react-scripts build && npm run postbuild",
+    "prebuild": "npm i",
+    "build": "react-scripts build",
     "postbuild": "react-snap",
     "deploy": "gh-pages-deploy",
     "test": "react-scripts test",
