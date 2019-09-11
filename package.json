@@ -38,7 +38,7 @@
     "prep": [
       "build"
     ],
-    "noprompt": false
+    "noprompt": true
   },
   "dependencies": {
     "@octokit/rest": "^16.28.9",
