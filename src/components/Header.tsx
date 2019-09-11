@@ -19,42 +19,52 @@ const StyledHeader = styled.header`
 `;
 
 const Header = (props: RouteComponentProps) => {
-  // Hover handlers
-  const [photoHover, setPhotoHover] = useState(false);
-  const [webHover, setWebHover] = useState(false);
-  const handleWebMouseEnter = () => setWebHover(true);
-  const handleWebMouseLeave = () =>
-    props.location.pathname !== "/web" && setWebHover(false);
-  const handlePhotoMouseEnter = () => setPhotoHover(true);
-  const handlePhotoMouseLeave = () =>
-    props.location.pathname !== "/photo" && setPhotoHover(false);
+  const { location } = props;
+  const pageIs = (page: string) => location.pathname.indexOf(page) !== -1;
+
+  const [showingSlideshow, setShowingSlideshow] = useState(pageIs("photo"));
+  const [showingParticles, setShowingParticles] = useState(pageIs("web"));
+  const [hovering, setHovering] = useState("");
+
+  const handleWebMouseEnter = () => {
+    setShowingParticles(true);
+    setHovering("web");
+  };
+
+  const handleWebMouseLeave = () => {
+    !pageIs("web") && setShowingParticles(false);
+    setHovering("");
+  };
+
+  const handlePhotoMouseEnter = () => {
+    setShowingSlideshow(true);
+    setHovering("photo");
+  };
+
+  const handlePhotoMouseLeave = () => {
+    !pageIs("photo") && setShowingSlideshow(false);
+    setHovering("");
+  };
 
   // Keep backgrounds for each section
   useEffect(() => {
-    setWebHover(false);
-    setPhotoHover(false);
-    switch (props.location.pathname) {
-      case "/web":
-        setWebHover(true);
-        break;
-      case "/photo":
-        setPhotoHover(true);
-        break;
+    setShowingParticles(false);
+    setShowingSlideshow(false);
+    const pageIs = (page: string) => location.pathname.indexOf(page) !== -1;
+    if (pageIs("web")) {
+      setShowingParticles(true);
+    } else if (pageIs("photo")) {
+      setShowingSlideshow(true);
     }
-    if (props.location.pathname === "/web") {
-      setWebHover(true);
-    } else {
-      setWebHover(false);
-    }
-  }, [props.location.pathname]);
+  }, [location.pathname]);
 
   return (
     <>
-      <GradientBackground showing={!photoHover || webHover} />
-      <ParticlesBackground showing={webHover} />
-      <BackgroundHolder showing={photoHover && !webHover}>
+      <GradientBackground showing />
+      <ParticlesBackground showing={showingParticles} />
+      <BackgroundHolder showing={showingSlideshow && !(hovering === "web")}>
         <Slideshow
-          isPlaying={photoHover}
+          isPlaying={showingSlideshow}
           images={[
             "/images/05.03.15.BSFSLightning.01.jpg",
             "/images/03.08.15.Birds.GW.01.jpg"
