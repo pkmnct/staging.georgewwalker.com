@@ -37,7 +37,8 @@
     "staticpath": "build",
     "cname": "staging.georgewwalker.com",
     "prep": [
-      "build"
+      "build",
+      "postbuild"
     ],
     "noprompt": true
   },
