@@ -7,7 +7,7 @@
     "prebuild": "npm i",
     "build": "react-scripts build",
     "postbuild": "react-snap",
-    "deploy": "gh-pages-deploy",
+    "deploy": "npm run build && gh-pages-deploy",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy:staging": "npm run sync-master && npm run deploy",
@@ -36,10 +36,6 @@
   "gh-pages-deploy": {
     "staticpath": "build",
     "cname": "staging.georgewwalker.com",
-    "prep": [
-      "build",
-      "postbuild"
-    ],
     "noprompt": true
   },
   "dependencies": {
