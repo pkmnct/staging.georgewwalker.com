@@ -37,10 +37,9 @@
     "staticpath": "build",
     "cname": "staging.georgewwalker.com",
     "prep": [
-      "build",
-      "postbuild"
+      "build"
     ],
-    "noprompt": true
+    "noprompt": false
   },
   "dependencies": {
     "@octokit/rest": "^16.28.9",
